@@ -3,7 +3,7 @@ from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 
 import json
 import datetime
-from app.mexcapis.urls import *
+# from app.mexcapis.urls import *
 # internal import
 class MexcUrls:
     # test connectivity to the REST API
