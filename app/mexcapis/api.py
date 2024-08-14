@@ -26,7 +26,7 @@ def get_current_price(symbol):
         url = 'https://contract.mexc.com/api/v1/contract/index_price/'
         headers = {
             'Accepts': 'application/json',
-            'X-MEXC-APIKEY': 'mx0vglg9EPNDYW06Tf',
+            'X-MEXC-APIKEY': 'mx0aBYs33eIilxBWC5',
         }
         session = Session()
         session.headers.update(headers)
@@ -48,7 +48,7 @@ def klines(symbol: str, interval: int, data_request:int):
         url = mexc_urls.klines_future_url
         headers = {
             'Accepts': 'application/json',
-            'X-MEXC-APIKEY': 'mx0vglg9EPNDYW06Tf',
+            'X-MEXC-APIKEY': 'mx0aBYs33eIilxBWC5',
         }
         session = Session()
         session.headers.update(headers)
