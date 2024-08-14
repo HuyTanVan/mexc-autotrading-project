@@ -173,4 +173,8 @@ cython_debug/
 #.idea/
 
 # file
+
+# IMPORTANT: Do NOT push this <gmail_token.json> and <client_serect.json> to GitHub. It contains sensitive information.
+# If you need to work with this file, make sure to exclude it from commits.
 app/gmail_api/gmail_token.json
+app/gmail_api/client_serect.json
