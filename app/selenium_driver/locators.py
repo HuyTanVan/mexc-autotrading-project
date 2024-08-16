@@ -59,3 +59,5 @@ class FutureLocator:
     real_time_price = (By.XPATH, "//tr[@class='ant-table-row ant-table-row-level-0']//td[3]")
     add_tp_sl_btn = (By.XPATH, "//span[@class='TpslRecordAndBtn_addBtnBox__i_fTS']")
 
+    # Since an order is placed, these elements are used to keep track of the order.
+    flash_close_btn = (By.XPATH, "(//div[@class='FastClose_handleWrapper__4NFBR FastClose_short__dT1BB'])[1]")
