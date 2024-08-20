@@ -11,8 +11,12 @@ This function connects to a Gmail account using credentials stored in a JSON fil
 to retrieve/extract a 6-digit verification code from emails in a Gmail account.
 """
 def get_email_code():
-    # Define the path to the Gmail API credentials file
+    # Define the path to the Gmail API credentials file.
+    # if running the script from the main directory (e.g., 'mexc_autotrading/run.py'):
     path = os.path.join(os.path.abspath("app\gmail_api\gmail_token.json"))
+
+    # if running the script from within the 'app/gmail_api' directory.
+    # path = os.path.join(os.path.abspath("gmail_token.json"))
 
     gmail = Gmail(creds_file=path)
     
@@ -42,9 +46,9 @@ def get_email_code():
             for num in nums_list:
                 if len(num) == 6:
                     code = num
-        print(
-              "------------------------------\n"
-             f"Function <get_email_code> at gmail.py executed successfully. Code=<{code}>\n"
-              "------------------------------\n"
-            )
-        return code
+            print(
+                "------------------------------\n"
+                f"Function <get_email_code> at gmail.py executed successfully. Code=<{code}>\n"
+                "------------------------------\n"
+                )
+            return code
