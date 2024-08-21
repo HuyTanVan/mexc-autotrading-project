@@ -52,7 +52,9 @@ def klines(symbol: str, interval: int, data_request:int):
         }
         session = Session()
         session.headers.update(headers)
+
         response = session.get(f'{url}{symbol}_USDT?interval=Min{interval}')
+        # response = session.get(f'{url}{symbol}_USDT?interval=Hour{interval}')
 
         data = json.loads(response.text)
         # desciptions =['Time', 'Open Price', 'Close Price', 'High Price', 'Low Price', 'Volume']
@@ -81,6 +83,7 @@ def get_time(symbol: str, interval: int, data_request = None) -> list:
         # time is represented as the format datetime.datetime(year, month, day, hour, minute),
         # using list comprehension to convert datime type into string type
         time = [str(_)[11:] for _ in time]
+        print(time)
         return time
 def get_volume(symbol: str, interval: int, data_request = None) -> list:
         symbol = symbol.upper()
@@ -111,5 +114,13 @@ def get_close_price(symbol: str, interval: int, data_request = None) -> list:
             data_request = 1
         return klines(symbol, interval, data_request).get('close_price')
 
+def is_previous_long(symbol: str, interval: int):  
+    previous = klines(symbol=symbol, interval=interval, data_request=2)
+    return previous.get("open_price")[0] < previous.get("close_price")[0]
 
-get_volume("arb", 30, 5)
+def is_current_long(symbol: str, interval: int):
+    previous = klines(symbol=symbol, interval=interval, data_request=1)
+    return previous.get("open_price") < previous.get("close_price")
+
+
+print(is_current_long('arb', 30))
