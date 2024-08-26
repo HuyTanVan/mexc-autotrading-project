@@ -21,7 +21,7 @@ class MexcUrls:
     # symbol = symbol of a coin, interval: 1m,5m,15m,30m,1h,2h...., numbers of calling 1/interval
     # not exactly as the price on website.
 
-    """ return a current price a perpetual contract """
+""" return a current price a perpetual contract """
 def get_current_price(symbol):
         url = 'https://contract.mexc.com/api/v1/contract/index_price/'
         headers = {
@@ -42,6 +42,7 @@ def get_current_price(symbol):
         except (ConnectionError, Timeout, TooManyRedirects, KeyError, AttributeError) as e:
             print("Error:", e)
             return None
+        
 def klines(symbol: str, interval: int, data_request:int):
         data_request = int(data_request)
         mexc_urls = MexcUrls()
@@ -75,6 +76,7 @@ def klines(symbol: str, interval: int, data_request:int):
                         'volume': volume[len(volume)-data_request::]
                         }
         return dict_data
+
 def get_time(symbol: str, interval: int, data_request = None) -> list:
         symbol.upper()
         if data_request == None:
@@ -85,6 +87,9 @@ def get_time(symbol: str, interval: int, data_request = None) -> list:
         time = [str(_)[11:] for _ in time]
         print(time)
         return time
+""" return a list of volumes as interval.
+    currently accept only minute.
+"""
 def get_volume(symbol: str, interval: int, data_request = None) -> list:
         symbol = symbol.upper()
         # 1m, 15m 30m, 1h, 12h, 24h
@@ -101,12 +106,15 @@ def get_volume(symbol: str, interval: int, data_request = None) -> list:
                 f"Volume: {str_volume}\n"
             )
         return volume
+""" return a open price of a contract at a specific time period """
 def get_open_price(symbol: str, interval: int, data_request = None) -> list:
         # 1m, 15m 30m, 1h, 12h, 24h
         # 1 as default
         if data_request == None:
             data_request = 1
         return klines(symbol, interval, data_request).get('open_price')
+
+""" return a close price of a contract at a specific time period """
 def get_close_price(symbol: str, interval: int, data_request = None) -> list:
         # 1m, 15m 30m, 1h, 12h, 24h
         # 1 as default
@@ -114,13 +122,13 @@ def get_close_price(symbol: str, interval: int, data_request = None) -> list:
             data_request = 1
         return klines(symbol, interval, data_request).get('close_price')
 
+""" to check if the previous of the current volume is short or long """
 def is_previous_long(symbol: str, interval: int):  
     previous = klines(symbol=symbol, interval=interval, data_request=2)
     return previous.get("open_price")[0] < previous.get("close_price")[0]
 
+""" to check if the current volume is short or long """
 def is_current_long(symbol: str, interval: int):
     previous = klines(symbol=symbol, interval=interval, data_request=1)
     return previous.get("open_price") < previous.get("close_price")
 
-
-print(is_current_long('arb', 30))
